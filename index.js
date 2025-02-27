@@ -1,47 +1,32 @@
-import { REST, Routes, Client, Events, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
+import commands from './commands/index.js'
+import events from './events/index.js'
 
 dotenv.config()
-const { TOKEN, CLIENT_ID } = process.env
-
-const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with Pong!',
-  },
-  {
-    name: 'suggest_movie',
-    description: 'finds movies in theatres and makes a suggestion',
-  }
-];
-
-const rest = new REST({ version: '10' }).setToken(TOKEN);
-
-try {
-  console.log('Started refreshing application (/) commands.');
-
-  await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
-
-  console.log('Successfully reloaded application (/) commands.');
-} catch (error) {
-  console.error(error);
-}
+const { TOKEN } = process.env
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.on(Events.ClientReady, readyClient => {
-  console.log(`Logged in as ${readyClient.user.tag}!`);
-});
+client.commands = new Collection();
+client.cooldowns = new Collection();
 
-client.on(Events.InteractionCreate, async interaction => {
-  if (!interaction.isChatInputCommand()) return;
+for (const command of commands) {
+    if ('data' in command && 'execute' in command){
+        client.commands.set(command.data.name, command);
+    }
+    else {
+        console.log(`[WARNING] The command at ${filePath} is missing a required property.`)
+    }
+}
 
-  if (interaction.commandName === 'ping') {
-    await interaction.reply('Pong!');
-  }
-  if (interaction.commandName === 'suggest_movie') {
-    await interaction.reply('Jaws!');
-  }
-});
+for (const event of events) {
+    if (event.once) {
+        client.once(event.name, (...args)=> event.execute(...args))
+    }
+    else {
+        client.on(event.name, (...args) => event.execute(...args))
+    }
+}
 
 client.login(TOKEN); 
