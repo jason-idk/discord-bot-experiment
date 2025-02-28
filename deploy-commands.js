@@ -4,7 +4,7 @@ import { TOKEN, CLIENT_ID, GUILD_ID } from './config.js'
 
 const rest = new REST().setToken(TOKEN);
 
-(async () => {
+const deploy = async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
         
@@ -22,4 +22,6 @@ const rest = new REST().setToken(TOKEN);
 	} catch (error) {
 		console.error(error);
 	}
-})();
+}
+
+deploy();
