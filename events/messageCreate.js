@@ -11,7 +11,7 @@ export default {
                 messages: [
                     {
                         role: 'assistant', 
-                        content: `You are a discord assistant who always keeps your responses under 2000, 
+                        content: `You are a discord assistant who always keeps your responses under 2000 words, 
                         and are very careful to be factually accurate.  
                         Respond to this to the very best of your ability:  ${message.content}`
                     }
