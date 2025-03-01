@@ -20,7 +20,6 @@ export default {
                     const roll = Math.ceil(Math.random() * numSides)
                     rolls.push(roll)
                 }
-                console.log(rolls);
                 await interaction.reply(`
                 ${interaction.user.username} rolled ${rolls.map(roll => ' ' + roll.toString())} for a total of ${rolls.reduce((prev, curr) => prev += curr, 0).toString()}!`)
             }
