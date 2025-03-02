@@ -21,7 +21,7 @@ export default {
                     rolls.push(roll)
                 }
                 await interaction.reply(`
-                ${interaction.user.username} rolled ${rolls.map(roll => ' ' + roll.toString())} for a total of ${rolls.reduce((prev, curr) => prev += curr, 0).toString()}!`)
+                ${interaction.user.globalName} rolled ${rolls.map(roll => ' ' + roll.toString())} for a total of ${rolls.reduce((prev, curr) => prev += curr, 0).toString()}!`)
             }
             else {
                 await interaction.reply(`No dice!`)
