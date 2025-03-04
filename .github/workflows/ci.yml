@@ -28,7 +28,7 @@ jobs:
 
       - name: Docker compose smoke test
         run: |
-          docker compose -f ./docker-compose.yml \
+          > .env && docker compose -f ./docker-compose.yml \
             up --build --exit-code-from discord-openai-bot \
             discord-openai-bot
 
