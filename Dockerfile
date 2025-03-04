@@ -6,4 +6,4 @@ RUN apk add --no-cache nodejs npm
 COPY . .
 RUN npm install
 
-ENTRYPOINT npm deploy && npm start
+ENTRYPOINT npm run deploy && npm start
