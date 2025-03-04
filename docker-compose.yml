@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  discord-openai-bot:
+    build: .
+    image: discord-openai-bot
+    container_name: discord-openai-bot
+    env_file:
+      - .env
+    restart: unless-stopped
