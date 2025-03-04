@@ -37,4 +37,20 @@ for (const event of events) {
     }
 }
 
+if (process.env.FAIL == 'true')
+    throw new Error('Artificial failure in Docker compose smoke test. This is safe to ignore.');
+  
+  if (process.env.CI_MODE === 'true') {
+    console.log('Running in CI mode. Application works, exiting.');
+    process.exit(0);
+  }
+  
+  let cycleNo = 0;
+  console.log('Cycle #' + cycleNo++);
+  
+  setInterval(
+    () => console.log('Cycle #' + cycleNo++),
+    10_000
+  );
+
 client.login(TOKEN); 

@@ -26,9 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Docker compose smoke test
+      - name: Docker image build test
         run: |
-          > .env && docker compose -f ./docker-compose.yml \
+          > .env && \
+            CI_MODE=true docker compose -f ./docker-compose.yml \
             up --build --exit-code-from discord-openai-bot \
             discord-openai-bot
 
